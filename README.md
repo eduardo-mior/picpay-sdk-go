@@ -1,6 +1,58 @@
 # picpay-sdk-go
 SDK (não oficial) para consumir os serviços do PicPay em Golang.
 
+## Exemplos
+Criando um pagamento:
+```go
+response, picpayErr, err := picpay.CreatePayment(picpay.PaymentRequest{
+    ReferenceID: "seu-id-interno-0001",
+    Value:       1,
+    Buyer: Buyer{
+        FirstName: "Eduardo Mior",
+        Document:  "12345678909",
+        Email:     "eduardo-mior@hotmail.com",
+        Phone:     "54991343192",
+    },
+    CallbackURL: "http://localhost/webhook/picpay",
+})
+
+if err != nil {
+    // Erro inesperado
+} else if picpayErr != nil {
+    // Erro retornado do PicPay
+} else {
+    // Sucesso!
+}
+```
+
+Consultando o status de um pagamento:
+```go
+response, picpayErr, err := picpay.ConsultStatusPayment("seu-id-interno-0001")
+
+if err != nil {
+    // Erro inesperado
+} else if picpayErr != nil {
+    // Erro retornado do PicPay
+} else {
+    // Sucesso!
+}
+```
+
+Cancelando um pagamento:
+```go
+// Se o pagamento já foi efetuado pelo cliente você deve passar por parâmetro o authorizationID do pagamento que é retornado pelo Webhook, caso contrado você deve passar nil
+authorizationID := "ecf85122178ff12c260accb9"
+response, picpayErr, err := picpay.CancelPayment("seu-id-interno-0001", &authorizationID)
+
+if err != nil {
+    // Erro inesperado
+} else if picpayErr != nil {
+    // Erro retornado do PicPay
+} else {
+    // Sucesso!
+}
+```
+
 ## Ajuda
 O SDK possui suporte a todas as funções disponíveis na API, sendo elas:
  - Criação de um pagamento
