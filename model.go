@@ -29,7 +29,7 @@ type PaymentResponse struct {
 	PaymentURL  string    `json:"paymentUrl"`  // Link para efetuar o pagamento
 	ExpiresAt   time.Time `json:"expiresAt"`   // Data de expiração do pagamento
 	QrCode      struct {
-		Content string `json:"content"` // Link para efetuar o pagamento
+		Content string `json:"content"` // Conteúdo interno do QRCode
 		Base64  string `json:"base64"`  // QRCode no formato Base64 (png)
 	} `json:"qrcode"`
 }
