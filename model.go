@@ -6,12 +6,14 @@ import (
 
 // PaymentRequest é a struct que é usada para fazer a request de um novo pagamento para o PicPay.
 type PaymentRequest struct {
-	ReferenceID string     `json:"referenceId"` // Nosso ID de controle interno
-	CallbackURL string     `json:"callbackUrl"` // URL do Webhook que é chamada quando o Status do pagamento é atualizado
-	ReturnURL   *string    `json:"returnUrl"`   // URL para onde o usuário sera direcionado ao efetuar o pagamento
-	Value       float64    `json:"value"`       // Valor do pagamento
-	ExpiresAt   *time.Time `json:"expiresAt"`   // Data de expiração do pagamento
-	Buyer       Buyer      `json:"buyer"`       // Informações do pagador
+	ReferenceID  string     `json:"referenceId"`  // Nosso ID de controle interno
+	CallbackURL  string     `json:"callbackUrl"`  // URL do Webhook que é chamada quando o Status do pagamento é atualizado
+	ReturnURL    *string    `json:"returnUrl"`    // URL para onde o usuário sera direcionado ao efetuar o pagamento
+	Value        float64    `json:"value"`        // Valor do pagamento
+	ExpiresAt    *time.Time `json:"expiresAt"`    // Data de expiração do pagamento
+	Buyer        Buyer      `json:"buyer"`        // Informações do pagador
+	PurchaseMode string     `json:"purchaseMode"` // Indica se o pagamento é online ou in-store (por padrão se não for informado nada é in-store)
+	Channel      string     `json:"channel"`      // Indica qual o estabelecimento (exclusivo à integradores que possuem mais de um estabelecimento comercial)
 }
 
 // Buyer é a struct que é usada para identificar para quem é o pagamento.
