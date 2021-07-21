@@ -1,4 +1,4 @@
-package picpaysdkgo
+package picpay
 
 import (
 	"os"
