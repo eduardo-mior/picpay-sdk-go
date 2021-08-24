@@ -13,15 +13,19 @@ import (
 	"time"
 )
 
+type Headers map[string]interface{}
+type QueryParams map[string]interface{}
+type PathParams []interface{}
+
 // Params Parâmetros para o método Request
 type Params struct {
 	Metodo       string
 	URL          string
 	Body         interface{}
-	Headers      map[string]interface{}
+	Headers      Headers
 	Timeout      int
-	PathParams   []interface{}
-	QueryParams  map[string]interface{}
+	PathParams   PathParams
+	QueryParams  QueryParams
 	BasicAuth    *BasicAuth
 	HandleErrors *bool
 }
@@ -35,7 +39,7 @@ type BasicAuth struct {
 // Response Retorno do método Request
 type Response struct {
 	StatusCode int
-	Headers    map[string]string
+	Headers    Headers
 	Body       map[string]interface{}
 	RawBody    []byte
 }
@@ -130,7 +134,7 @@ func New(params Params) (*Response, error) {
 	defer res.Body.Close()
 
 	// Lendo os headers da resposta que veio da API.
-	headers := make(map[string]string)
+	headers := Headers{}
 	for name, values := range res.Header {
 		headers[name] = values[0]
 	}
