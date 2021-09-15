@@ -152,16 +152,18 @@ func New(params Params) (*Response, error) {
 	// Verificando se deu algum erro ao fazer o Unmarshal do JSON.
 	if err != nil {
 
-		// Se tiver dado algum problema ao decodar a resposta da API, então nós verificamos, caso o StatusCode tenha sido de err (code >= 400) e caso
-		// tenha retornado alguma resposta da API então nós montamos uma mensagem de erro customizada, com a mensagem de erro original mais o Body da resposta, 
-		// caso o StatusCode seja de sucesso (code <= 300) então a API retornou um Body vazio então não retorna erro retorna apenas um response vazio com Status,
+		// Se tiver dado algum problema ao decodar a resposta da API, então nós verificamos, caso o StatusCode tenha sido de erro (StatusCode >= 400) e caso
+		// tenha retornado alguma resposta da API então nós montamos uma mensagem de erro customizada, com a mensagem de erro original mais o Body da resposta,
+		// caso o StatusCode seja de sucesso (code <= 300) então a API retornou um Body vazio então não retorna erro retorna apenas um response vazio com StatusCode,
 		// porém caso o StatusCode seja de erro e não tenha retornado body então simplesmente retorna o erro gerado pelo json.Unmarshal().
 		if res.StatusCode >= 400 && len(rawBody) > 0 {
 			return nil, errors.New(err.Error() + " - response: " + string(rawBody))
-		} else if res.StatusCode <= 300 len(rawBody) == 0 {
+		} else if res.StatusCode <= 300 && len(rawBody) == 0 {
 			return &Response{StatusCode: res.StatusCode, Headers: headers, Body: map[string]interface{}{}, RawBody: []byte{}}, nil
+		} else {
+			return nil, err
 		}
-		return nil, err
+
 	}
 
 	// Se tiver dado tudo certo então retorna o StatusCode, o RawBody (body em binário), o Body (body já parseado em map[string]interface{}) e os Headers
