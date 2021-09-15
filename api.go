@@ -13,7 +13,7 @@ const BASEURL = "https://appws.picpay.com/ecommerce/public/payments/"
 func CreatePayment(paymentRequest PaymentRequest) (*PaymentResponse, *ErrorResponse, error) {
 
 	params := request.Params{
-		Metodo:  "POST",
+		Method:  "POST",
 		Body:    paymentRequest,
 		Headers: map[string]interface{}{"x-picpay-token": os.Getenv("X_PICPAY_TOKEN")},
 		URL:     BASEURL,
@@ -38,7 +38,7 @@ func CreatePayment(paymentRequest PaymentRequest) (*PaymentResponse, *ErrorRespo
 func ConsultStatusPayment(referenceID string) (*ConsultStatusResponse, *ErrorResponse, error) {
 
 	params := request.Params{
-		Metodo:  "GET",
+		Method:  "GET",
 		Headers: map[string]interface{}{"x-picpay-token": os.Getenv("X_PICPAY_TOKEN")},
 		URL:     BASEURL + referenceID + "/status",
 	}
@@ -62,7 +62,7 @@ func ConsultStatusPayment(referenceID string) (*ConsultStatusResponse, *ErrorRes
 func CancelPayment(referenceID string, authorizationID *string) (*CancelPaymentResponse, *ErrorResponse, error) {
 
 	params := request.Params{
-		Metodo:  "POST",
+		Method:  "POST",
 		Headers: map[string]interface{}{"x-picpay-token": os.Getenv("X_PICPAY_TOKEN")},
 		URL:     BASEURL + referenceID + "/cancellations",
 		Body:    CancelPaymentRequest{authorizationID},

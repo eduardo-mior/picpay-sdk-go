@@ -19,7 +19,7 @@ type PathParams []interface{}
 
 // Params Parâmetros para o método Request
 type Params struct {
-	Metodo       string
+	Method       string
 	URL          string
 	Body         interface{}
 	Headers      Headers
@@ -87,9 +87,9 @@ func New(params Params) (*Response, error) {
 	// Caso a requisição possua body então passamos a variavel do body, caso contrario passamos nil.
 	// Não podemos passar a variavel body quando ela é nil porque se não da erro interno do GO por causa dos nils tipados e nils não tipados.
 	if body == nil {
-		request, err = http.NewRequest(params.Metodo, params.URL, nil)
+		request, err = http.NewRequest(params.Method, params.URL, nil)
 	} else {
-		request, err = http.NewRequest(params.Metodo, params.URL, body)
+		request, err = http.NewRequest(params.Method, params.URL, body)
 	}
 
 	if err != nil {
