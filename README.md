@@ -1,7 +1,26 @@
-# picpay-sdk-go
+# PicPay SDK para ![GoLang](https://i.imgur.com/OXtBgXZ.png)
 SDK (não oficial) para consumir os serviços do PicPay em Golang.
 
-## Exemplos
+## 📲  Instalação
+Para baixar o SDK basta utilizar o seguinte comando:
+```bash
+$ go get -u github.com/eduardo-mior/picpay-sdk-go
+```
+
+## 🛠 Funcionalidades do SDK
+Funcionalidades disponíbilizadas no SDK:
+- Criação de um pagamento
+- Consulta status de um pagamento
+- Cancelamento de um pagamento
+
+## 🌟  Começando 
+Para começar você deve fazer o `import` do SDK, para isso basta adicionar a seguinte linha no seu código:
+```go
+import "github.com/eduardo-mior/picpay-sdk-go"
+```
+Feito isso já esta tudo pronto para você começar a utilizaro SDK!
+
+## 💻  Exemplos de uso
 Criando um pagamento:
 ```go
 response, picpayErr, err := picpay.CreatePayment(picpay.PaymentRequest{
@@ -54,7 +73,7 @@ if err != nil {
 }
 ```
 
-## Ajuda
+## 🙋🏻‍♂️  Ajuda
 O SDK possui suporte a todas as funções disponíveis na API, sendo elas:
  - Criação de um pagamento
  - Cancelamento de um pagamento
@@ -66,5 +85,5 @@ O SDK precisa obrigatóriamente para funcionar, de uma variavel de ambiente cham
 Todas as funções do SDK podém retornar um `error` genérico do GO, este erro esta sempre relacionado a erros do GO, como por exemplo falha ao tentar dar parse em um JSON, além disso todas as funções também podem retornar um `ErrorResponse` que é uma Struct de erro retornada do PicPay, que pode retornar quando você não envia um campo obrigatório por exemplo.
 ###
 Atenção! Você deve implementar manualmente o Webhook que recebe as atualizações de Status do pagamento usando o seu Framework WEB de prefencia (lembrando que o SDK possui a Struct `WebhookResponse` que pode ajudar no recebimento dos dados).
-## Documentação oficial
+## 📚 Documentação oficial
 Para mais duvidas consulte a [documentação oficial do PicPay](https://picpay.github.io/picpay-docs-digital-payments/).
