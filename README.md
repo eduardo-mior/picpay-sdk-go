@@ -1,4 +1,5 @@
-# PicPay SDK para ![GoLang](https://i.imgur.com/OXtBgXZ.png)
+![GoLang PicPay](https://i.imgur.com/fvtdEXO.png)
+# PicPay SDK para Go
 SDK (não oficial) para consumir os serviços do PicPay em Golang.
 
 ## 📲  Instalação
