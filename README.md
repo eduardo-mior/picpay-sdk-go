@@ -86,5 +86,7 @@ O SDK precisa obrigatóriamente para funcionar, de uma variavel de ambiente cham
 Todas as funções do SDK podém retornar um `error` genérico do GO, este erro esta sempre relacionado a erros do GO, como por exemplo falha ao tentar dar parse em um JSON, além disso todas as funções também podem retornar um `ErrorResponse` que é uma Struct de erro retornada do PicPay, que pode retornar quando você não envia um campo obrigatório por exemplo.
 ###
 Atenção! Você deve implementar manualmente o Webhook que recebe as atualizações de Status do pagamento usando o seu Framework WEB de prefencia (lembrando que o SDK possui a Struct `WebhookResponse` que pode ajudar no recebimento dos dados).
+###
+Após receber a notificação do Webhook do PicPay você deve chamar a função `ConsultStatusPayment()` passando por parametro o `referenceId`, que é o ID que foi enviado pelo PicPay na struct `WebhookResponse`.
 ## 📚 Documentação oficial
 Para mais duvidas consulte a [documentação oficial do PicPay](https://picpay.github.io/picpay-docs-digital-payments/).
