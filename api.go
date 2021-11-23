@@ -10,12 +10,12 @@ import (
 const BASEURL = "https://appws.picpay.com/ecommerce/public/payments/"
 
 // CreatePayment é o método responsável por criar um pagamento no picpay.
-func CreatePayment(paymentRequest PaymentRequest) (*PaymentResponse, *ErrorResponse, error) {
+func CreatePayment(paymentRequest PaymentRequest, picpayToken ...string) (*PaymentResponse, *ErrorResponse, error) {
 
 	params := request.Params{
 		Method:  "POST",
 		Body:    paymentRequest,
-		Headers: map[string]interface{}{"x-picpay-token": os.Getenv("X_PICPAY_TOKEN")},
+		Headers: map[string]interface{}{"x-picpay-token": getPicpayToken(picpayToken...)},
 		URL:     BASEURL,
 	}
 
@@ -35,11 +35,11 @@ func CreatePayment(paymentRequest PaymentRequest) (*PaymentResponse, *ErrorRespo
 }
 
 // ConsultStatusPayment é o método responsável por consultar o status de um pagamento no picpay.
-func ConsultStatusPayment(referenceID string) (*ConsultStatusResponse, *ErrorResponse, error) {
+func ConsultStatusPayment(referenceID string, picpayToken ...string) (*ConsultStatusResponse, *ErrorResponse, error) {
 
 	params := request.Params{
 		Method:  "GET",
-		Headers: map[string]interface{}{"x-picpay-token": os.Getenv("X_PICPAY_TOKEN")},
+		Headers: map[string]interface{}{"x-picpay-token": getPicpayToken(picpayToken...)},
 		URL:     BASEURL + referenceID + "/status",
 	}
 
@@ -59,11 +59,11 @@ func ConsultStatusPayment(referenceID string) (*ConsultStatusResponse, *ErrorRes
 }
 
 // CancelPayment é o método responsável por cancelar um pagamento no picpay.
-func CancelPayment(referenceID string, authorizationID *string) (*CancelPaymentResponse, *ErrorResponse, error) {
+func CancelPayment(referenceID string, authorizationID *string, picpayToken ...string) (*CancelPaymentResponse, *ErrorResponse, error) {
 
 	params := request.Params{
 		Method:  "POST",
-		Headers: map[string]interface{}{"x-picpay-token": os.Getenv("X_PICPAY_TOKEN")},
+		Headers: map[string]interface{}{"x-picpay-token": getPicpayToken(picpayToken...)},
 		URL:     BASEURL + referenceID + "/cancellations",
 		Body:    CancelPaymentRequest{authorizationID},
 	}
@@ -90,4 +90,14 @@ func parseError(body []byte) (*ErrorResponse, error) {
 		return nil, err
 	}
 	return &errResponse, nil
+}
+
+// getPicpayToken é a função responsável por retornar o Token do PicPay.
+// Caso tenha sido passado um token por parametro pegamos o token passado por parametro, se não pegamos da variavel de ambiente X_PICPAY_TOKEN.
+func getPicpayToken(picpayToken ...string) string {
+	if len(picpayToken) > 0 {
+		return picpayToken[0]
+	} else {
+		return os.Getenv("X_PICPAY_TOKEN")
+	}
 }
