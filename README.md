@@ -34,7 +34,7 @@ response, picpayErr, err := picpay.CreatePayment(picpay.PaymentRequest{
         Phone:     "54991343192",
     },
     CallbackURL: "http://localhost/webhook/picpay",
-})
+}, "seu-token")
 
 if err != nil {
     // Erro inesperado
@@ -47,7 +47,7 @@ if err != nil {
 
 Consultando o status de um pagamento:
 ```go
-response, picpayErr, err := picpay.ConsultStatusPayment("seu-id-interno-0001")
+response, picpayErr, err := picpay.ConsultStatusPayment("seu-id-interno-0001", "seu-token")
 
 if err != nil {
     // Erro inesperado
@@ -63,7 +63,7 @@ Cancelando um pagamento:
 // Se o pagamento já foi efetuado pelo cliente você deve passar por parâmetro o authorizationID 
 // do pagamento que é retornado pelo Webhook, caso contrado você deve passar nil
 authorizationID := "ecf85122178ff12c260accb9"
-response, picpayErr, err := picpay.CancelPayment("seu-id-interno-0001", &authorizationID)
+response, picpayErr, err := picpay.CancelPayment("seu-id-interno-0001", &authorizationID, "seu-token")
 
 if err != nil {
     // Erro inesperado
