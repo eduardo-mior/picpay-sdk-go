@@ -81,7 +81,7 @@ O SDK possui suporte a todas as funções disponíveis na API, sendo elas:
  - Consulta de status de um pagamento
 Além de possuir suporte a todas as funções, o SDK também possui todas as Struct de todos os modelos documentados na documentação do PicPay.
 ###
-O SDK precisa obrigatóriamente para funcionar, de uma variavel de ambiente chamada `X_PICPAY_TOKEN` que contém o seu Token de integração do PicPay. Esse Token pode ser obtido no painel do PicPay para empresas, ou no antigo painel para Lojistas. Para setar a variavel ambiente você pode usar a função `os.Setenv("X_PICPAY_TOKEN", "seu-token...")` ou você pode usar um arquivo `.env` e usar um pacote para gerenciar as variaveis de ambiente, como por exemplo o [Gotenv](https://github.com/subosito/gotenv).
+O SDK precisa obrigatóriamente do X-Token do PicPay para funcionar. O X-Token pode ser passado por parametro em todas as funções, ou pode ser definido na variavel de ambiente `X_PICPAY_TOKEN` que irá conter o seu Token de integração do PicPay. Esse Token pode ser obtido no painel do PicPay para empresas na aba "Integrações", ou no antigo painel para Lojistas na aba "Integração". Para setar a variavel ambiente você pode usar a função `os.Setenv("X_PICPAY_TOKEN", "seu-token...")` ou você pode usar um arquivo `.env` e usar um pacote para gerenciar as variaveis de ambiente, como por exemplo o [Gotenv](https://github.com/subosito/gotenv).
 ###
 Todas as funções do SDK podém retornar um `error` genérico do GO, este erro esta sempre relacionado a erros do GO, como por exemplo falha ao tentar dar parse em um JSON, além disso todas as funções também podem retornar um `ErrorResponse` que é uma Struct de erro retornada do PicPay, que pode retornar quando você não envia um campo obrigatório por exemplo.
 ###
