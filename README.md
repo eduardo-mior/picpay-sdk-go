@@ -87,6 +87,7 @@ Todas as funções do SDK podém retornar um `error` genérico do GO, este erro 
 ###
 Atenção! Você deve implementar manualmente o Webhook que recebe as atualizações de Status do pagamento usando o seu Framework WEB de prefencia (lembrando que o SDK possui a Struct `WebhookResponse` que pode ajudar no recebimento dos dados).
 ###
-Após receber a notificação do Webhook do PicPay você deve chamar a função `ConsultStatusPayment()` passando por parametro o `referenceId`, que é o ID que foi enviado pelo PicPay na struct `WebhookResponse`.
+Antigmente após receber a notificação do Webhook do PicPay você deveria chamar a função `ConsultStatusPayment()` passando por parametro o `referenceId`, que é o ID que foi enviado pelo PicPay na struct `WebhookResponse` para poder consular o status do pagamento.
+A partir de novembro de 2021 a Struct enviada pelo Webhook foi mudada complementada e agora o Status já vem com a respsota do Webhook, sendo assim não é mais necessário chamar a função `ConsultStatusPayment()`.
 ## 📚 Documentação oficial
 Para mais duvidas consulte a [documentação oficial do PicPay](https://picpay.github.io/picpay-docs-digital-payments/).
