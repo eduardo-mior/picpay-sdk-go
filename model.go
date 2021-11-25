@@ -63,8 +63,16 @@ type CancelPaymentResponse struct {
 
 // WebhookResponse é a struct que é usada para receber os dados do request que o PicPay faz para o nosso webhook.
 type WebhookResponse struct {
-	ReferenceID     string `json:"referenceId"`     // Nosso ID de controle interno
+	PaymentID       string `json:"paymentId"`       // Nosso ID de controle interno
 	AuthorizationID string `json:"authorizationId"` // ID de controle do pagamento do PicPay
+	// Status do pagamento.
+	// Aparementemene os status do Webhook e os status da consuta são diferentes, no presente momento 25/11/2021 não existe nenhuma documentação
+	// sobre os status e o model do Webhook. O único status mapeado até o momento da consulta é approved.
+	Status         string  `json:"status"`         // Status atual do pagamento
+	NSU            *string `json:"nsu"`            // NSU (Número Sequêncial Único)
+	TID            *string `json:"tid"`            // TID (Transaction ID)
+	BankInvoiceUrl *string `json:"bankInvoiceUrl"` // URL da fatura bancária (nos testes feitos esse campo sempre fica null)
+	Acquirer       string  `json:"acquirer"`       // Adquirinte (nos testes fica sempre como 'picpay')
 }
 
 // ErrorResponse é a struct que é usada para receber os retornos de erro do PicPay.
